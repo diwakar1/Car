@@ -16,6 +16,8 @@ import java.util.Map;
 public class HomeController {
     @Autowired
     CarRepository carRepository;
+    @Autowired
+    CategoryRepository categoryRepository;
 
     @Autowired
     CloudinaryConfig cloudc;
@@ -62,7 +64,17 @@ public class HomeController {
         return "redirect:/";
 
     }
+    @PostMapping("/processCategory")
+    public String processForm(@Valid Category category, BindingResult result){
 
+        if(result.hasErrors()){
+            return  "category";
+
+        }
+        categoryRepository.save(category);
+        return "redirect:/";
+
+    }
 
 
     }
